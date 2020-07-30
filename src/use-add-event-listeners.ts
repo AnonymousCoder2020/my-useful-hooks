@@ -3,8 +3,12 @@ type Listener<K extends keyof WindowEventMap> = [K, (event: WindowEventMap[K]) =
 
 type Listeners<L extends (keyof WindowEventMap)[]> = { [P in keyof L]: L[P] extends keyof WindowEventMap ? Listener<L[P]> : never }
 
-export default <R extends HTMLElement, L extends (keyof WindowEventMap)[]>(listeners: Listeners<L>, deps: DependencyList) => {
-  const ref = useRef<R | null>(null)
+export default <R extends HTMLElement | Document | Window, L extends (keyof WindowEventMap)[]>(
+  listeners: Listeners<L>,
+  deps: DependencyList,
+  firstElement?: R
+) => {
+  const ref = useRef<R | void>(firstElement)
   useEffect(() => {
     const { current: element } = ref
     if (!element) return
