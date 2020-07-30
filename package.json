@@ -1,6 +1,6 @@
 {
-  "name": "my-react-ts-boilerplate",
-  "version": "1.0.0",
+  "name": "my-useful-hooks",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -11,15 +11,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AnonymousCoder2020/my-react-ts-boilerplate.git"
+    "url": "git+https://github.com/AnonymousCoder2020/my-useful-hooks.git"
   },
   "keywords": [],
   "author": "",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/AnonymousCoder2020/my-react-ts-boilerplate/issues"
+    "url": "https://github.com/AnonymousCoder2020/my-useful-hooks/issues"
   },
-  "homepage": "https://github.com/AnonymousCoder2020/my-react-ts-boilerplate#readme",
+  "homepage": "https://github.com/AnonymousCoder2020/my-useful-hooks#readme",
   "dependencies": {
     "@use-it/event-listener": "^0.1.3",
     "chrome-extension-async": "^3.4.1",
