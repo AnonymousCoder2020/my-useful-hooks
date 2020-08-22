@@ -4,8 +4,5 @@ export default (initialState) => {
     const onChange = useCallback(({ target: { value } }) => {
         setState(value);
     }, []);
-    return {
-        props: { value: state, onChange },
-        state: [state, setState],
-    };
+    return [{ value: state, onChange }, state, setState];
 };

@@ -4,8 +4,5 @@ export default (initialState: string) => {
   const onChange = useCallback(({ target: { value } }: React.ChangeEvent<HTMLInputElement>) => {
     setState(value)
   }, [])
-  return {
-    props: { value: state, onChange },
-    state: [state, setState],
-  } as const
+  return [{ value: state, onChange }, state, setState] as const
 }
