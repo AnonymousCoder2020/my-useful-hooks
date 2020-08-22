@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc && git add .",
-    "publish": "git push origin master",
+    "push": "git push origin master",
     "pull": "git pull origin master"
   },
   "repository": {
