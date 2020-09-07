@@ -1,7 +1,14 @@
-import { useState, useCallback } from 'react'
-export default <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(initialState: string) => {
+import { useCallback, useState } from 'react'
+export default <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+  initialState: string,
+  handleChange: (event: React.ChangeEvent<T>) => unknown
+) => {
   const [state, setState] = useState(initialState ?? '')
-  const onChange = useCallback(({ target: { value } }: React.ChangeEvent<T>) => {
+  const onChange = useCallback((event: React.ChangeEvent<T>) => {
+    handleChange(event)
+    const {
+      target: { value },
+    } = event
     setState(value)
   }, [])
   return [{ value: state, onChange }, state, setState] as const
