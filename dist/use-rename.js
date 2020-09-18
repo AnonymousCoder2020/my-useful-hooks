@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import useOnClickOutside from 'use-onclickoutside';
 import useInput from './use-input';
-export const useRename = (initialState, handleChange) => {
+export default (initialState, handleChange) => {
     const [isRename, setIsRename] = useState(false);
     const [props, input, setInput] = useInput(initialState);
     const ref = useRef(null);

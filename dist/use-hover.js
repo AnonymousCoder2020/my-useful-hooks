@@ -1,5 +1,5 @@
 import { useCallback, useRef, useState } from 'react';
-export const useHover = () => {
+export default () => {
     const [isHover, setIsHover] = useState(false);
     const targetRef = useRef(null);
     const handleMouseOver = useCallback(({}) => {

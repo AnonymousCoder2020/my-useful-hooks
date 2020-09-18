@@ -1,5 +1,5 @@
 import React, { useCallback, useRef, useState } from 'react'
-export const useHover = <T extends HTMLElement>() => {
+export default <T extends HTMLElement>() => {
   const [isHover, setIsHover] = useState(false)
   const targetRef = useRef<T | null>(null)
   const handleMouseOver = useCallback(({}: React.MouseEvent) => {
