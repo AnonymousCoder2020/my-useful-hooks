@@ -4,7 +4,7 @@ interface UseRenameArgs {
     input: string;
     onRename?: (newState: string) => unknown;
 }
-declare const _default: <T extends HTMLInputElement | HTMLTextAreaElement>({ initial, input, onRename }: UseRenameArgs) => readonly [{
+declare const _default: <T extends HTMLElement>({ initial, input, onRename }: UseRenameArgs) => readonly [{
     readonly ref: React.MutableRefObject<T | null>;
     readonly onKeyPress: ({ key }: React.KeyboardEvent<T>) => false | void;
     readonly autoFocus: true;

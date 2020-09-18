@@ -7,7 +7,7 @@ interface UseRenameArgs {
   onRename?: (newState: string) => unknown
 }
 
-export default <T extends HTMLInputElement | HTMLTextAreaElement>({ initial, input, onRename }: UseRenameArgs) => {
+export default <T extends HTMLElement>({ initial, input, onRename }: UseRenameArgs) => {
   const [isRename, setIsRename] = useState(false)
   const ref = useRef<T | null>(null)
   useOnClickOutside(ref, () => setIsRename(false))
