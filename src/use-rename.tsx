@@ -1,17 +1,22 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react'
 import useOnClickOutside from 'use-onclickoutside'
-import useInput from './use-input'
-export default <T extends HTMLInputElement | HTMLTextAreaElement>(initialState: string, handleChange?: (newState: string) => unknown) => {
+
+interface UseRenameArgs {
+  initial: string
+  use: [string, React.Dispatch<React.SetStateAction<string>>]
+  onChange?: (newState: string) => unknown
+}
+
+export default <T extends HTMLInputElement | HTMLTextAreaElement>({ initial, use: [input, setInput], onChange }: UseRenameArgs) => {
   const [isRename, setIsRename] = useState(false)
-  const [props, input, setInput] = useInput(initialState)
   const ref = useRef<T | null>(null)
   useOnClickOutside(ref, () => setIsRename(false))
   useEffect(() => {
-    if (!isRename && initialState !== input) handleChange?.(input)
+    if (!isRename && initial !== input) onChange?.(input)
   }, [isRename])
   const handlePressEnter = useCallback(({ key }: React.KeyboardEvent<T>) => key === 'Enter' && setIsRename(false), [])
   return {
     state: [isRename, setIsRename],
-    input: [{ ...props, ref, onKeyPress: handlePressEnter, autoFocus: true }, input, setInput],
+    input: [{ ref, onKeyPress: handlePressEnter, autoFocus: true }, input, setInput],
   } as const
 }
