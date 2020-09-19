@@ -1,11 +1,20 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 export default <T extends HTMLElement>(initialState: string) => {
-  const ref = useRef<T | null>(null)
   const [state, setState] = useState(initialState)
-  const onInput = useCallback(({ target }: React.ChangeEvent<T>) => target.textContent && setState(target.textContent), [])
+  const editableElementRef = useRef<T | null>(null)
+  const ref = useCallback(
+    (node: T | null) => {
+      if (!node) return
+      editableElementRef.current = node
+      node.textContent = state
+      node.focus()
+    },
+    [state]
+  )
   useEffect(() => {
-    if (ref.current) ref.current.textContent = state
+    editableElementRef.current && (editableElementRef.current.textContent = state)
   }, [state])
-  return [{ ref, onInput }, state, setState] as const
+  const onInput = useCallback(({ target }: React.ChangeEvent<T>) => target.textContent && setState(target.textContent), [])
+  return [{ ref, onInput, contentEditable: true }, state, setState] as const
 }
