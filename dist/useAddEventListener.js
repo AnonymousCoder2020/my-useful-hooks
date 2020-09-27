@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-export default (eventName, callback, ref, deps = [], listenerOpt) => {
+export default (ref, eventName, callback, deps = [], listenerOpt) => {
     useEffect(() => {
         const { current: element } = ref;
         if (!element)

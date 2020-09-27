@@ -1,18 +1,13 @@
-import { useCallback, useState } from 'react'
-export default <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
-  initialState: string,
-  handleChange?: (event: React.ChangeEvent<T>) => unknown
-) => {
+import { useRef, useState } from 'react'
+import useAddEventListener from './useAddEventListener'
+export default <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(initialState: string) => {
   const [state, setState] = useState(initialState ?? '')
-  const onChange = useCallback(
-    (event: React.ChangeEvent<T>) => {
-      handleChange?.(event)
-      const {
-        target: { value },
-      } = event
-      setState(value)
-    },
-    [handleChange]
-  )
-  return [{ value: state, onChange }, state, setState] as const
+  const ref = useRef<T | null>(null)
+  useAddEventListener(ref, 'change', event => {
+    const {
+      target: { value },
+    } = event
+    setState(value)
+  })
+  return [{ ref, props: { value: state } }, state, setState] as const
 }

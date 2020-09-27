@@ -15,6 +15,6 @@ export default <T extends HTMLElement>({ initial, input, onRename }: UseRenameAr
   useEffect(() => {
     if (!isRename && initial !== input) onRename?.(input)
   }, [isRename])
-  useAddEventListener('keypress', ({ key }) => key === 'Enter' && setIsRename(false), ref)
-  return [ref, isRename, setIsRename, { autoFocus: true }] as const
+  useAddEventListener(ref, 'keypress', ({ key }) => key === 'Enter' && setIsRename(false))
+  return [{ ref, props: { autoFocus: true } }, isRename, setIsRename] as const
 }

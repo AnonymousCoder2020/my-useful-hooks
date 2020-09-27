@@ -1,8 +1,8 @@
 import { DependencyList, MutableRefObject, useEffect } from 'react'
 export default <K extends keyof WindowEventMap, T extends HTMLElement>(
+  ref: MutableRefObject<T | null>,
   eventName: K,
   callback: (event: WindowEventMap[K] & { target: T }) => any,
-  ref: MutableRefObject<T | null>,
   deps: DependencyList = [],
   listenerOpt?: boolean | AddEventListenerOptions | undefined
 ) => {

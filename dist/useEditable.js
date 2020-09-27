@@ -13,6 +13,6 @@ export default (initialState) => {
     useEffect(() => {
         editableElementRef.current && (editableElementRef.current.textContent = state);
     }, [state]);
-    useAddEventListener('input', ({ target }) => target.textContent && setState(target.textContent), editableElementRef);
-    return [ref, state, setState, { contentEditable: true }];
+    useAddEventListener(editableElementRef, 'input', ({ target }) => target.textContent && setState(target.textContent));
+    return [{ ref, props: { contentEditable: true } }, state, setState];
 };

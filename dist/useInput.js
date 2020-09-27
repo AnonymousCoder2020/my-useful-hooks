@@ -1,10 +1,11 @@
-import { useCallback, useState } from 'react';
-export default (initialState, handleChange) => {
+import { useRef, useState } from 'react';
+import useAddEventListener from './useAddEventListener';
+export default (initialState) => {
     const [state, setState] = useState(initialState !== null && initialState !== void 0 ? initialState : '');
-    const onChange = useCallback((event) => {
-        handleChange === null || handleChange === void 0 ? void 0 : handleChange(event);
+    const ref = useRef(null);
+    useAddEventListener(ref, 'change', event => {
         const { target: { value }, } = event;
         setState(value);
-    }, [handleChange]);
-    return [{ value: state, onChange }, state, setState];
+    });
+    return [{ ref, props: { value: state } }, state, setState];
 };
