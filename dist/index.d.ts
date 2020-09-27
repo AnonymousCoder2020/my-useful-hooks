@@ -1,6 +1,8 @@
-export { default as useAddEventListeners } from './use-add-event-listeners';
-export { default as useCount } from './use-count';
-export { default as useEditable } from './use-editable';
-export { default as useHover } from './use-hover';
-export { default as useInput } from './use-input';
-export { default as useRename } from './use-rename';
+export { default as useAddEventListener } from './useAddEventListener';
+export { default as useAddEventListeners } from './useAddEventListeners';
+export { default as useCount } from './useCount';
+export { default as useCursor } from './useCursor';
+export { default as useEditable } from './useEditable';
+export { default as useHover } from './useHover';
+export { default as useInput } from './useInput';
+export { default as useRename } from './useRename';

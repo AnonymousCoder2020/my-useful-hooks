@@ -1,5 +1,6 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import useOnClickOutside from 'use-onclickoutside'
+import useAddEventListener from './useAddEventListener'
 
 interface UseRenameArgs {
   initial: string
@@ -14,6 +15,6 @@ export default <T extends HTMLElement>({ initial, input, onRename }: UseRenameAr
   useEffect(() => {
     if (!isRename && initial !== input) onRename?.(input)
   }, [isRename])
-  const handlePressEnter = useCallback(({ key }: React.KeyboardEvent<T>) => key === 'Enter' && setIsRename(false), [])
-  return [{ ref, onKeyPress: handlePressEnter, autoFocus: true }, isRename, setIsRename] as const
+  useAddEventListener('keypress', ({ key }) => key === 'Enter' && setIsRename(false), ref)
+  return [ref, isRename, setIsRename, { autoFocus: true }] as const
 }
