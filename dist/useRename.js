@@ -10,5 +10,5 @@ export default ({ initial, input, onRename }) => {
             onRename === null || onRename === void 0 ? void 0 : onRename(input);
     }, [isRename]);
     useAddEventListener(ref, 'keypress', ({ key }) => key === 'Enter' && setIsRename(false));
-    return [{ ref, props: { autoFocus: true } }, isRename, setIsRename];
+    return [{ ref, autoFocus: true }, isRename, setIsRename];
 };

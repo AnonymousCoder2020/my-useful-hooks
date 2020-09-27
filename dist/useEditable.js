@@ -14,5 +14,5 @@ export default (initialState) => {
         editableElementRef.current && (editableElementRef.current.textContent = state);
     }, [state]);
     useAddEventListener(editableElementRef, 'input', ({ target }) => target.textContent && setState(target.textContent));
-    return [{ ref, props: { contentEditable: true } }, state, setState];
+    return [{ ref, contentEditable: true }, state, setState];
 };
