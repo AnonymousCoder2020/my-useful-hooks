@@ -8,6 +8,7 @@ export default (initialState) => {
             return;
         editableElementRef.current = node;
         node.textContent = state;
+        node.focus();
     }, [state]);
     useEffect(() => {
         editableElementRef.current && (editableElementRef.current.textContent = state);

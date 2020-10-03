@@ -9,6 +9,7 @@ export default <T extends HTMLElement>(initialState: string) => {
       if (!node) return
       editableElementRef.current = node
       node.textContent = state
+      node.focus()
     },
     [state]
   )
