@@ -2,6 +2,8 @@ import { useCallback, useRef } from 'react';
 export default (listeners, { onRef, dep } = {}) => {
     const refElement = useRef(null);
     const ref = useCallback(node => {
+        if (refElement.current === node)
+            return;
         onRef === null || onRef === void 0 ? void 0 : onRef(node);
         listeners.forEach(listener => {
             var _a;

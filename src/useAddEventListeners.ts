@@ -16,6 +16,7 @@ interface OptProps<T extends HTMLElement> {
 export default <K extends (keyof WindowEventMap)[], T extends HTMLElement>(listeners: Listeners<K>, { onRef, dep }: Partial<OptProps<T>> = {}) => {
   const refElement = useRef<T | null>(null)
   const ref = useCallback<RefFunction<T>>(node => {
+    if (refElement.current === node) return
     onRef?.(node)
     listeners.forEach(listener => {
       refElement.current?.removeEventListener(...listener)
