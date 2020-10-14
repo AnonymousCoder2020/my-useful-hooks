@@ -1,13 +1,11 @@
 import { useCallback, useRef } from 'react';
 export default (eventName, listener, { listenerOption, onRef, dep } = {}) => {
     const refElement = useRef(null);
-    const ref = useCallback((node) => {
+    const ref = useCallback(node => {
         var _a;
         onRef === null || onRef === void 0 ? void 0 : onRef(node);
         (_a = refElement === null || refElement === void 0 ? void 0 : refElement.current) === null || _a === void 0 ? void 0 : _a.removeEventListener(eventName, listener);
-        if (!node)
-            return;
-        node.addEventListener(eventName, listener, listenerOption);
+        node === null || node === void 0 ? void 0 : node.addEventListener(eventName, listener, listenerOption);
         refElement.current = node;
     }, dep !== null && dep !== void 0 ? dep : []);
     return { ref, refElement };

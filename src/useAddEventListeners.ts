@@ -1,4 +1,4 @@
-import { DependencyList, MutableRefObject, useCallback, useRef } from 'react'
+import { DependencyList, useCallback, useRef } from 'react'
 
 type ListenerOption = boolean | AddEventListenerOptions | undefined
 
@@ -6,20 +6,20 @@ type Listener<K extends keyof WindowEventMap> = [K, (event: WindowEventMap[K]) =
 
 type Listeners<L extends (keyof WindowEventMap)[]> = { [P in keyof L]: L[P] extends keyof WindowEventMap ? Listener<L[P]> : never }
 
-export type MutableRef<T extends HTMLElement> = MutableRefObject<T | null> | ((instance: T | null) => void) | null
+type RefFunction<T extends HTMLElement> = (instance: T | null) => void
 
 interface OptProps<T extends HTMLElement> {
   dep: DependencyList
-  onRef: (node: T) => unknown
+  onRef: RefFunction<T>
 }
 
 export default <K extends (keyof WindowEventMap)[], T extends HTMLElement>(listeners: Listeners<K>, { onRef, dep }: Partial<OptProps<T>> = {}) => {
   const refElement = useRef<T | null>(null)
-  const ref = useCallback((node: T) => {
+  const ref = useCallback<RefFunction<T>>(node => {
     onRef?.(node)
     listeners.forEach(listener => {
       refElement.current?.removeEventListener(...listener)
-      node.addEventListener(...listener)
+      node?.addEventListener(...listener)
     })
     refElement.current = node
   }, dep ?? [])
