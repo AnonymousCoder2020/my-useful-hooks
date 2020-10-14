@@ -5,7 +5,7 @@ interface UseRenameArgs {
     onRename?: (newState: string) => unknown;
 }
 declare const _default: <T extends HTMLElement>({ initial, input, onRename }: UseRenameArgs) => readonly [{
-    readonly ref: import("react").MutableRefObject<T | null>;
+    readonly ref: (node: T) => void;
     readonly autoFocus: true;
 }, boolean, import("react").Dispatch<import("react").SetStateAction<boolean>>];
 export default _default;

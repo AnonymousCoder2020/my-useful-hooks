@@ -1,14 +1,14 @@
-import { useRef, useEffect } from 'react';
-export default (listeners, deps, firstElement) => {
-    const ref = useRef(firstElement);
-    useEffect(() => {
-        const { current: element } = ref;
-        if (!element)
-            return;
-        listeners.forEach(listener => element.addEventListener(...listener));
-        return () => {
-            listeners.forEach(listener => element.removeEventListener(...listener));
-        };
-    }, deps);
-    return ref;
+import { useCallback, useRef } from 'react';
+export default (listeners, { onRef, dep } = {}) => {
+    const refElement = useRef(null);
+    const ref = useCallback((node) => {
+        onRef === null || onRef === void 0 ? void 0 : onRef(node);
+        listeners.forEach(listener => {
+            var _a;
+            (_a = refElement.current) === null || _a === void 0 ? void 0 : _a.removeEventListener(...listener);
+            node.addEventListener(...listener);
+        });
+        refElement.current = node;
+    }, dep !== null && dep !== void 0 ? dep : []);
+    return { ref, refElement };
 };

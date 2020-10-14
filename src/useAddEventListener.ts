@@ -1,15 +1,25 @@
-import { DependencyList, MutableRefObject, useEffect } from 'react'
+import { DependencyList, MutableRefObject, useCallback, useRef } from 'react'
+
+export type MutableRef<T extends HTMLElement> = MutableRefObject<T | null> | ((instance: T | null) => void) | null
+
+interface OptProps<T extends HTMLElement> {
+  dep: DependencyList
+  listenerOption: boolean | AddEventListenerOptions | undefined
+  onRef: (node: T) => unknown
+}
+
 export default <K extends keyof WindowEventMap, T extends HTMLElement>(
-  ref: MutableRefObject<T | null>,
   eventName: K,
-  callback: (event: WindowEventMap[K] & { target: T }) => any,
-  deps: DependencyList = [],
-  listenerOpt?: boolean | AddEventListenerOptions | undefined
+  listener: (event: WindowEventMap[K] & { target: T }) => any,
+  { listenerOption, onRef, dep }: Partial<OptProps<T>> = {}
 ) => {
-  useEffect(() => {
-    const { current: element } = ref
-    if (!element) return
-    element.addEventListener(eventName, callback as EventListener, listenerOpt)
-    return () => element.removeEventListener(eventName, callback as EventListener)
-  }, deps)
+  const refElement = useRef<T | null>(null)
+  const ref = useCallback((node: T) => {
+    onRef?.(node)
+    refElement?.current?.removeEventListener(eventName, listener as EventListener)
+    if (!node) return
+    node.addEventListener(eventName, listener as EventListener, listenerOption)
+    refElement.current = node
+  }, dep ?? [])
+  return { ref, refElement }
 }

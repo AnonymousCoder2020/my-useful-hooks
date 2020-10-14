@@ -4,7 +4,7 @@ import useAddEventListener from './useAddEventListener'
 export default <T extends HTMLElement>(initialState: string) => {
   const [state, setState] = useState(initialState)
   const editableElementRef = useRef<T | null>(null)
-  const ref = useCallback(
+  const onRef = useCallback(
     (node: T | null) => {
       if (!node) return
       editableElementRef.current = node
@@ -13,9 +13,9 @@ export default <T extends HTMLElement>(initialState: string) => {
     },
     [state]
   )
+  const { ref } = useAddEventListener<'input', T>('input', ({ target }) => target.textContent && setState(target.textContent), { onRef })
   useEffect(() => {
     editableElementRef.current && (editableElementRef.current.textContent = state)
   }, [state])
-  useAddEventListener(editableElementRef, 'input', ({ target }) => target.textContent && setState(target.textContent))
   return [{ ref, contentEditable: true }, state, setState] as const
 }
