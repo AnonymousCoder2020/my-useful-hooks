@@ -1,18 +1,19 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import useAddEventListener from './useAddEventListener';
 export default (initialState) => {
     const [state, setState] = useState(initialState);
-    const editableElementRef = useRef(null);
     const onRef = useCallback((node) => {
         if (!node)
             return;
-        editableElementRef.current = node;
         node.textContent = state;
         node.focus();
     }, [state]);
-    const { ref } = useAddEventListener('input', ({ target }) => target.textContent && setState(target.textContent), { onRef });
+    const { ref, refElement } = useAddEventListener('input', ({ target }) => target.textContent && setState(target.textContent), {
+        onRef,
+        dep: [state],
+    });
     useEffect(() => {
-        editableElementRef.current && (editableElementRef.current.textContent = state);
+        refElement.current && (refElement.current.textContent = state);
     }, [state]);
     return [{ ref, contentEditable: true }, state, setState];
 };
