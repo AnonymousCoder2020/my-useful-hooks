@@ -30,6 +30,6 @@ export default <K extends (keyof WindowEventMap)[], T extends GlobalElements>(
     })
     refElement.current = node
   }, dep ?? [])
-  useEffect(() => initialRef && ref(initialRef), [])
+  useEffect(() => initialRef && ref(initialRef), (initialRef && dep) ?? [])
   return { ref, refElement }
 }
