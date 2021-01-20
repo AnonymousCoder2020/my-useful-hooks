@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
 export default (eventName, listener, { listenerOption, onRef, dep, initialRef } = {}) => {
-    var _a;
     const refElement = useRef(null);
     const ref = useCallback(node => {
         var _a;
@@ -9,6 +8,6 @@ export default (eventName, listener, { listenerOption, onRef, dep, initialRef } 
         node === null || node === void 0 ? void 0 : node.addEventListener(eventName, listener, listenerOption);
         refElement.current = node;
     }, dep !== null && dep !== void 0 ? dep : []);
-    useEffect(() => initialRef && ref(initialRef), (_a = (initialRef && dep)) !== null && _a !== void 0 ? _a : []);
+    useEffect(() => initialRef && ref(initialRef), initialRef ? dep !== null && dep !== void 0 ? dep : [] : []);
     return { ref, refElement };
 };

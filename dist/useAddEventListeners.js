@@ -1,6 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
 export default (listeners, { onRef, dep, initialRef } = {}) => {
-    var _a;
     const refElement = useRef(null);
     const ref = useCallback(node => {
         if (refElement.current === node)
@@ -13,6 +12,6 @@ export default (listeners, { onRef, dep, initialRef } = {}) => {
         });
         refElement.current = node;
     }, dep !== null && dep !== void 0 ? dep : []);
-    useEffect(() => initialRef && ref(initialRef), (_a = (initialRef && dep)) !== null && _a !== void 0 ? _a : []);
+    useEffect(() => initialRef && ref(initialRef), initialRef ? dep !== null && dep !== void 0 ? dep : [] : []);
     return { ref, refElement };
 };

@@ -23,6 +23,6 @@ export default <K extends keyof WindowEventMap, T extends GlobalElements>(
     node?.addEventListener(eventName, listener as EventListener, listenerOption)
     refElement.current = node
   }, dep ?? [])
-  useEffect(() => initialRef && ref(initialRef), (initialRef && dep) ?? [])
+  useEffect(() => initialRef && ref(initialRef), initialRef ? dep ?? [] : [])
   return { ref, refElement }
 }
