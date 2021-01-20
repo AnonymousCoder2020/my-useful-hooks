@@ -1,4 +1,4 @@
-import { DependencyList, useCallback, useRef } from 'react'
+import { DependencyList, useCallback, useEffect, useRef } from 'react'
 
 type GlobalElements = Window | HTMLDocument | HTMLElement
 
@@ -16,12 +16,13 @@ export default <K extends keyof WindowEventMap, T extends GlobalElements>(
   listener: (event: WindowEventMap[K] & { target: T }) => any,
   { listenerOption, onRef, dep, initialRef }: Partial<OptProps<T>> = {}
 ) => {
-  const refElement = useRef<T | null>(initialRef ?? null)
+  const refElement = useRef<T | null>(null)
   const ref = useCallback<RefFunction<T>>(node => {
     onRef?.(node)
     refElement?.current?.removeEventListener(eventName, listener as EventListener)
     node?.addEventListener(eventName, listener as EventListener, listenerOption)
     refElement.current = node
   }, dep ?? [])
+  useEffect(() => initialRef && ref(initialRef), [])
   return { ref, refElement }
 }

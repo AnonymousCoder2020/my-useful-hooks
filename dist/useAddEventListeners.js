@@ -1,6 +1,6 @@
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 export default (listeners, { onRef, dep, initialRef } = {}) => {
-    const refElement = useRef(initialRef !== null && initialRef !== void 0 ? initialRef : null);
+    const refElement = useRef(null);
     const ref = useCallback(node => {
         if (refElement.current === node)
             return;
@@ -12,5 +12,6 @@ export default (listeners, { onRef, dep, initialRef } = {}) => {
         });
         refElement.current = node;
     }, dep !== null && dep !== void 0 ? dep : []);
+    useEffect(() => initialRef && ref(initialRef), []);
     return { ref, refElement };
 };
