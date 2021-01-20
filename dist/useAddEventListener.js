@@ -1,6 +1,6 @@
 import { useCallback, useRef } from 'react';
-export default (eventName, listener, { listenerOption, onRef, dep } = {}) => {
-    const refElement = useRef(null);
+export default (eventName, listener, { listenerOption, onRef, dep, initialRef } = {}) => {
+    const refElement = useRef(initialRef !== null && initialRef !== void 0 ? initialRef : null);
     const ref = useCallback(node => {
         var _a;
         onRef === null || onRef === void 0 ? void 0 : onRef(node);

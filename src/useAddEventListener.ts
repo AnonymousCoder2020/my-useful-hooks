@@ -1,19 +1,22 @@
 import { DependencyList, useCallback, useRef } from 'react'
 
-type RefFunction<T extends HTMLElement> = (instance: T | null) => void
+type GlobalElements = Window | HTMLDocument | HTMLElement
 
-interface OptProps<T extends HTMLElement> {
+type RefFunction<T extends GlobalElements> = (instance: T | null) => void
+
+interface OptProps<T extends GlobalElements> {
   dep: DependencyList
   listenerOption: boolean | AddEventListenerOptions | undefined
   onRef: RefFunction<T>
+  initialRef?: T
 }
 
-export default <K extends keyof WindowEventMap, T extends HTMLElement>(
+export default <K extends keyof WindowEventMap, T extends GlobalElements>(
   eventName: K,
   listener: (event: WindowEventMap[K] & { target: T }) => any,
-  { listenerOption, onRef, dep }: Partial<OptProps<T>> = {}
+  { listenerOption, onRef, dep, initialRef }: Partial<OptProps<T>> = {}
 ) => {
-  const refElement = useRef<T | null>(null)
+  const refElement = useRef<T | null>(initialRef ?? null)
   const ref = useCallback<RefFunction<T>>(node => {
     onRef?.(node)
     refElement?.current?.removeEventListener(eventName, listener as EventListener)
