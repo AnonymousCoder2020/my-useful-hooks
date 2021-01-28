@@ -25,6 +25,8 @@
     "@use-it/event-listener": "^0.1.6",
     "chrome-extension-async": "^3.4.1",
     "dayjs": "^1.10.1",
+    "lodash-es": "^4.17.20",
+    "my-useful-type": "git+https://github.com/AnonymousCoder2020/my-useful-type.git",
     "next-ts-utility": "git+https://github.com/AnonymousCoder2020/next-ts-utility.git",
     "polished": "^4.0.5",
     "randexp": "^0.5.3",

@@ -7,5 +7,6 @@ export { default as useEditable } from './useEditable';
 export { default as useHover } from './useHover';
 export { default as useInput } from './useInput';
 export { default as useMultiRef } from './useMultiRef';
+export { default as useOmit } from './useOmit';
 export { default as useRename } from './useRename';
 export { default as useSustain } from './useSustain';
