@@ -1,4 +1,5 @@
 import { DependencyList, useCallback, useEffect, useRef } from 'react'
+import useFlag from './useFlag'
 
 type GlobalElements = Window | HTMLDocument | HTMLElement
 
@@ -24,5 +25,18 @@ export default <K extends keyof WindowEventMap, T extends GlobalElements>(
     refElement.current = node
   }, dep ?? [])
   useEffect(() => initialRef && ref(initialRef), initialRef ? dep ?? [] : [])
+  const [flag, ban] = useFlag()
+  // イベントリスナーの更新
+  useEffect(() => {
+    const el = refElement.current
+    if (!el) return
+    const onBeforeMount = () => el.removeEventListener(eventName, listener as EventListener)
+    if (flag) {
+      ban()
+      return onBeforeMount
+    }
+    el.addEventListener(eventName, listener as EventListener)
+    return onBeforeMount
+  }, dep ?? [])
   return { ref, refElement }
 }
