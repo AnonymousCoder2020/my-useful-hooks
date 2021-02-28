@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef } from 'react';
+import useFlag from './useFlag';
 export default (eventName, listener, { listenerOption, onRef, dep, initialRef } = {}) => {
     const refElement = useRef(null);
     const ref = useCallback(node => {
@@ -9,5 +10,19 @@ export default (eventName, listener, { listenerOption, onRef, dep, initialRef } 
         refElement.current = node;
     }, dep !== null && dep !== void 0 ? dep : []);
     useEffect(() => initialRef && ref(initialRef), initialRef ? dep !== null && dep !== void 0 ? dep : [] : []);
+    const [flag, ban] = useFlag();
+    // イベントリスナーの更新
+    useEffect(() => {
+        const el = refElement.current;
+        if (!el)
+            return;
+        const onBeforeMount = () => el.removeEventListener(eventName, listener);
+        if (flag) {
+            ban();
+            return onBeforeMount;
+        }
+        el.addEventListener(eventName, listener);
+        return onBeforeMount;
+    }, dep !== null && dep !== void 0 ? dep : []);
     return { ref, refElement };
 };
