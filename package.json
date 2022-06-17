@@ -59,7 +59,7 @@
     "jest-svg-transformer": "^1.0.0",
     "my-useful-type": "github:AnonymousCoder2020/my-useful-type",
     "node-forge": ">=0.10.0",
-    "node-sass": "^6.0.1",
+    "node-sass": "^7.0.0",
     "sass-loader": "^10.1.0",
     "ts-essentials": "^7.0.1",
     "ts-jest": "^26.4.4",
