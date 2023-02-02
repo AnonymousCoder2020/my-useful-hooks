@@ -56,24 +56,11 @@
     "jest-svg-transformer": "^1.0.0",
     "my-useful-type": "github:AnonymousCoder2020/my-useful-type",
     "node-forge": ">=0.10.0",
-<<<<<<< HEAD
-    "node-sass": "^8.0.0",
-    "style-loader": "^3.3.1",
-=======
->>>>>>> 9de4d4b5cb3e6d274e3a3969f5b1e44067621eb7
     "ts-essentials": "^7.0.1",
     "ts-jest": "^26.4.4",
     "ts-loader": "^8.0.17",
     "ts-node": "^9.1.1",
-<<<<<<< HEAD
-    "typescript": "^4.7.3",
-    "webextension-polyfill": "^0.9.0",
-    "webpack": "^5.73.0",
-    "webpack-cli": "^4.9.2",
-    "webpack-dev-server": "^4.9.2"
-=======
     "typescript": "^4.7.3"
->>>>>>> 9de4d4b5cb3e6d274e3a3969f5b1e44067621eb7
   },
   "jest": {
     "moduleFileExtensions": [
