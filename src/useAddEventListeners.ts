@@ -1,4 +1,5 @@
-import { DependencyList, useCallback, useEffect, useRef } from 'react'
+import type React from 'react'
+import type { DependencyList } from 'react'
 
 type GlobalElements = Window | HTMLDocument | HTMLElement
 
@@ -17,11 +18,12 @@ interface OptProps<T extends GlobalElements> {
 }
 
 export default <K extends (keyof WindowEventMap)[], T extends GlobalElements>(
+  r: typeof React,
   listeners: Listeners<K>,
   { onRef, dep, initialRef }: Partial<OptProps<T>> = {}
 ) => {
-  const refElement = useRef<T | null>(null)
-  const ref = useCallback<RefFunction<T>>(node => {
+  const refElement = r.useRef<T | null>(null)
+  const ref = r.useCallback<RefFunction<T>>(node => {
     if (refElement.current === node) return
     onRef?.(node)
     listeners.forEach(listener => {
@@ -30,6 +32,6 @@ export default <K extends (keyof WindowEventMap)[], T extends GlobalElements>(
     })
     refElement.current = node
   }, dep ?? [])
-  useEffect(() => initialRef && ref(initialRef), initialRef ? dep ?? [] : [])
+  r.useEffect(() => initialRef && ref(initialRef), initialRef ? dep ?? [] : [])
   return { ref, refElement }
 }

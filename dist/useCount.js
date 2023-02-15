@@ -1,13 +1,12 @@
-import { useState, useCallback } from 'react';
-export default (min, max) => {
-    const [count, setCount] = useState(0);
-    const inc = useCallback(() => {
+export default (r, min, max) => {
+    const [count, setCount] = r.useState(0);
+    const inc = r.useCallback(() => {
         setCount(count => {
             const incCount = count + 1;
             return max < incCount ? min : incCount;
         });
     }, [min, max]);
-    const dec = useCallback(() => {
+    const dec = r.useCallback(() => {
         setCount(count => {
             const decCount = count - 1;
             return decCount < min ? max : decCount;
@@ -15,6 +14,6 @@ export default (min, max) => {
     }, [min, max]);
     return {
         state: [count, setCount],
-        method: { dec, inc },
+        method: { dec, inc }
     };
 };

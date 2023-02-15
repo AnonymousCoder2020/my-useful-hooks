@@ -1,13 +1,12 @@
 import { isNumber } from 'lodash-es';
-import { useCallback, useEffect, useState } from 'react';
-export default (time, { onStart, onStop } = {}) => {
-    const [flag, setFlag] = useState(false);
-    const [id, setId] = useState();
-    const sustain = useCallback(() => {
+export default (r, time, { onStart, onStop } = {}) => {
+    const [flag, setFlag] = r.useState(false);
+    const [id, setId] = r.useState();
+    const sustain = r.useCallback(() => {
         setFlag(true);
         isNumber(id) && clearTimeout(id);
         setId(setTimeout(() => setFlag(false), time));
     }, [id]);
-    useEffect(() => (flag ? onStart === null || onStart === void 0 ? void 0 : onStart() : onStop === null || onStop === void 0 ? void 0 : onStop()), [flag]);
+    r.useEffect(() => (flag ? onStart?.() : onStop?.()), [flag]);
     return [flag, sustain];
 };

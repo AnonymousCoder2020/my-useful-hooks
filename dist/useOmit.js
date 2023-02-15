@@ -1,5 +1,4 @@
 import { omit } from 'lodash-es';
-import { useMemo } from 'react';
-export default (props, ...omitPropsName) => {
-    return useMemo(() => omit(props, ...omitPropsName), [props]);
+export default (r, props, ...omitPropsName) => {
+    return r.useMemo(() => omit(props, ...omitPropsName), [props]);
 };

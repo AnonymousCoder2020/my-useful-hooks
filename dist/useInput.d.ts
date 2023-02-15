@@ -1,6 +1,6 @@
-/// <reference types="react" />
-declare const _default: <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(initialState: string) => readonly [{
+import type React from 'react';
+declare const _default: <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(r: typeof React, initialState: string) => readonly [{
     readonly value: string;
-    readonly onChange: ({ target: { value } }: import("react").ChangeEvent<T>) => void;
-}, string, import("react").Dispatch<import("react").SetStateAction<string>>];
+    readonly onChange: ({ target: { value } }: React.ChangeEvent<T>) => void;
+}, string, React.Dispatch<React.SetStateAction<string>>];
 export default _default;

@@ -1,8 +1,7 @@
-import { useEffect, useState } from 'react';
-export default () => {
-    const [x, setX] = useState(0);
-    const [y, setY] = useState(0);
-    useEffect(() => {
+export default (r) => {
+    const [x, setX] = r.useState(0);
+    const [y, setY] = r.useState(0);
+    r.useEffect(() => {
         window.addEventListener('mousemove', ({ x, y }) => {
             setX(x);
             setY(y);

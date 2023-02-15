@@ -1,7 +1,7 @@
-const { exec } = require('child_process')
+import { exec } from 'child_process'
 ;(async () => {
   const [, , scriptName, ...props] = process.argv
-  exec(`node --loader ts-node/esm.mjs scripts/${scriptName}.ts ${props.join(' ')}`, (err, stdout, stderr) => {
+  exec(`yarn ts-node --esm scripts/${scriptName}.ts ${props.join(' ')}`, (err, stdout, stderr) => {
     if (err) {
       console.log(`(script_err ${scriptName}) ${stderr}`)
       return

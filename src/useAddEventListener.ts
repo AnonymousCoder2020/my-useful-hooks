@@ -1,4 +1,5 @@
-import { DependencyList, useCallback, useEffect, useRef } from 'react'
+import type React from 'react'
+import type { DependencyList } from 'react'
 import useFlag from './useFlag'
 
 type GlobalElements = Window | HTMLDocument | HTMLElement
@@ -13,21 +14,22 @@ interface OptProps<T extends GlobalElements> {
 }
 
 export default <K extends keyof WindowEventMap, T extends GlobalElements>(
+  r: typeof React,
   eventName: K,
   listener: (event: WindowEventMap[K] & { target: T }) => any,
   { listenerOption, onRef, dep, initialRef }: Partial<OptProps<T>> = {}
 ) => {
-  const refElement = useRef<T | null>(null)
-  const ref = useCallback<RefFunction<T>>(node => {
+  const refElement = r.useRef<T | null>(null)
+  const ref = r.useCallback<RefFunction<T>>(node => {
     onRef?.(node)
     refElement?.current?.removeEventListener(eventName, listener as EventListener)
     node?.addEventListener(eventName, listener as EventListener, listenerOption)
     refElement.current = node
   }, dep ?? [])
-  useEffect(() => initialRef && ref(initialRef), initialRef ? dep ?? [] : [])
-  const [flag, ban] = useFlag()
+  r.useEffect(() => initialRef && ref(initialRef), initialRef ? dep ?? [] : [])
+  const [flag, ban] = useFlag(r)
   // イベントリスナーの更新
-  useEffect(() => {
+  r.useEffect(() => {
     const el = refElement.current
     if (!el) return
     const onBeforeMount = () => el.removeEventListener(eventName, listener as EventListener)

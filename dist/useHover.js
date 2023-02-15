@@ -1,18 +1,16 @@
-import { useState } from 'react';
 import useAddEventListeners from './useAddEventListeners';
-export default () => {
-    const [isHover, setIsHover] = useState(false);
-    const { ref } = useAddEventListeners([
+export default (r) => {
+    const [isHover, setIsHover] = r.useState(false);
+    const { ref } = useAddEventListeners(r, [
         ['mouseover', () => setIsHover(true)],
         [
             'mouseout',
             ({ relatedTarget, target }) => {
-                var _a;
-                if (!relatedTarget || (relatedTarget instanceof Node && ((_a = target) === null || _a === void 0 ? void 0 : _a.contains(relatedTarget))))
+                if (!relatedTarget || (relatedTarget instanceof Node && target?.contains(relatedTarget)))
                     return;
                 setIsHover(false);
-            },
-        ],
+            }
+        ]
     ]);
     return [ref, isHover];
 };

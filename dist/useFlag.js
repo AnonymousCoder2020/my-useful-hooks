@@ -1,8 +1,5 @@
-import { useCallback, useState } from 'react';
-export default () => {
-    const [flag, setFlag] = useState(true);
-    const ban = useCallback(() => {
-        setFlag(false);
-    }, []);
+export default (r) => {
+    const [flag, setFlag] = r.useState(true);
+    const ban = r.useCallback(() => setFlag(false), []);
     return [flag, ban];
 };

@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import type React from 'react'
 import MultiRef from 'react-multi-ref'
 
-export default <K, V>() => {
-  const [itemRefs] = useState(() => new MultiRef<K, V>())
+export default <K, V>(r: typeof React) => {
+  const [itemRefs] = r.useState(() => new MultiRef<K, V>())
   return itemRefs
 }

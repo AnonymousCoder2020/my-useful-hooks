@@ -1,7 +1,6 @@
-import { useRef } from 'react';
-import useOnClickOutside from 'use-onclickoutside';
-export default (handler) => {
-    const ref = useRef(null);
+import useOnClickOutside from 'use-onclickoutside'; // TODO パッケージ先Reactに依存しない代替
+export default (r, handler) => {
+    const ref = r.useRef(null);
     useOnClickOutside(ref, handler);
     return ref;
 };

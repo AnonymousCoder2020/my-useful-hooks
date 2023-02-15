@@ -1,6 +1,5 @@
-import { useCallback, useState } from 'react';
-export default (initialState) => {
-    const [state, setState] = useState(initialState !== null && initialState !== void 0 ? initialState : '');
-    const onChange = useCallback(({ target: { value } }) => setState(value), []);
+export default (r, initialState) => {
+    const [state, setState] = r.useState(initialState ?? '');
+    const onChange = r.useCallback(({ target: { value } }) => setState(value), []);
     return [{ value: state, onChange }, state, setState];
 };

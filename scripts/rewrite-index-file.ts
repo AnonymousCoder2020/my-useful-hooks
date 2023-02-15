@@ -1,6 +1,6 @@
-const glob = require('glob')
-const { promisify } = require('util')
-const fs = require('fs/promises')
+import glob from 'glob'
+import { promisify } from 'util'
+import fs from 'fs/promises'
 ;(async () => {
   const hookNames: string[] = []
   ;(await promisify(glob)('./src/*.ts')).forEach((path: string) => {
@@ -8,6 +8,7 @@ const fs = require('fs/promises')
     if (!hookName || hookName === 'index') return
     hookNames.push(hookName)
   })
+  console.log(hookNames.join(','))
   const indexFileValue = hookNames.map(hookName => `export { default as ${hookName} } from './${hookName}'`).join('\n')
   try {
     await fs.writeFile('./src/index.ts', indexFileValue)
