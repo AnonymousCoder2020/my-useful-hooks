@@ -12,3 +12,4 @@ export { default as useNowDayjs } from './useNowDayjs';
 export { default as useOmit } from './useOmit';
 export { default as useRename } from './useRename';
 export { default as useSustain } from './useSustain';
+export { default as useToggle } from './useToggle';
