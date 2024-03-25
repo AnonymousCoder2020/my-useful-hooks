@@ -10,8 +10,8 @@ interface UseRenameArgs {
 
 export default <T extends HTMLElement>(r: typeof React, { initial, input, onRename }: UseRenameArgs) => {
   const [isRename, setIsRename] = r.useState(false)
-  const { ref, refElement } = useAddEventListener<'keypress', T>(r, 'keypress', ({ key }) => key === 'Enter' && setIsRename(false))
-  useOnClickOutside(refElement, () => setIsRename(false))
+  const { ref, refEl } = useAddEventListener<'keypress', T>(r, 'keypress', ({ key }) => key === 'Enter' && setIsRename(false))
+  useOnClickOutside(refEl, () => setIsRename(false))
   r.useEffect(() => {
     if (!isRename && initial !== input) onRename?.(input)
   }, [isRename])

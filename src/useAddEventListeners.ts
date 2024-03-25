@@ -22,16 +22,16 @@ export default <K extends (keyof WindowEventMap)[], T extends GlobalElements>(
   listeners: Listeners<K>,
   { onRef, dep, initialRef }: Partial<OptProps<T>> = {}
 ) => {
-  const refElement = r.useRef<T | null>(null)
+  const refEl = r.useRef<T | null>(null)
   const ref = r.useCallback<RefFunction<T>>(node => {
-    if (refElement.current === node) return
+    if (refEl.current === node) return
     onRef?.(node)
     listeners.forEach(listener => {
-      refElement.current?.removeEventListener(...listener)
+      refEl.current?.removeEventListener(...listener)
       node?.addEventListener(...listener)
     })
-    refElement.current = node
+    refEl.current = node
   }, dep ?? [])
   r.useEffect(() => initialRef && ref(initialRef), initialRef ? dep ?? [] : [])
-  return { ref, refElement }
+  return { ref, refEl }
 }

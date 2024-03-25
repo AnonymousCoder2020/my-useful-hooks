@@ -2,8 +2,8 @@ import useOnClickOutside from 'use-onclickoutside'; // TODO パッケージ先Re
 import useAddEventListener from './useAddEventListener';
 export default (r, { initial, input, onRename }) => {
     const [isRename, setIsRename] = r.useState(false);
-    const { ref, refElement } = useAddEventListener(r, 'keypress', ({ key }) => key === 'Enter' && setIsRename(false));
-    useOnClickOutside(refElement, () => setIsRename(false));
+    const { ref, refEl } = useAddEventListener(r, 'keypress', ({ key }) => key === 'Enter' && setIsRename(false));
+    useOnClickOutside(refEl, () => setIsRename(false));
     r.useEffect(() => {
         if (!isRename && initial !== input)
             onRename?.(input);

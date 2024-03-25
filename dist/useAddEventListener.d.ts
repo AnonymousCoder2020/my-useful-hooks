@@ -12,6 +12,6 @@ declare const _default: <K extends keyof WindowEventMap, T extends GlobalElement
     target: T;
 }) => any, { listenerOption, onRef, dep, initialRef }?: Partial<OptProps<T>>) => {
     ref: RefFunction<T>;
-    refElement: React.MutableRefObject<T | null>;
+    refEl: React.MutableRefObject<T | null>;
 };
 export default _default;
