@@ -7,7 +7,6 @@ export default <T extends HTMLInputElement | HTMLTextAreaElement | HTMLSelectEle
     const inputEl = refEl.current
     if (!inputEl) return
     setCore(newState)
-    inputEl.value = newState
   }, [])
   return [ref, core, setState] as const
 }

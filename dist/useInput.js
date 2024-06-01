@@ -7,7 +7,6 @@ export default (r, initialState) => {
         if (!inputEl)
             return;
         setCore(newState);
-        inputEl.value = newState;
     }, []);
     return [ref, core, setState];
 };
